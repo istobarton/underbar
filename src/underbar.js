@@ -159,9 +159,20 @@ _.uniq = function(array){
   //     return total + number * number;
   //   }); // should be 5, regardless of the iterator function passed in
   //          No accumulator is given so the first element is used.
-  _.reduce = function(collection, iterator, accumulator) {
+_.reduce = function(collection, iterator, accumulator) {
+  if(accumulator === undefined){
+    var total = collection[0];
+    _.each(collection, function(item, index){
+      if(index!==0){
+      total = iterator(total, item);}})
+  }else{
+    var total = accumulator;
+    _.each(collection, function(item, index){
+      total = iterator(total, item);})
+    }
+  return total;
+};
 
-  };
 
   // Determine if the array or object contains a given value (using `===`).
   _.contains = function(collection, target) {
